@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORLD'S BEST MIND READER - By @tyagixd</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mystery+Quest&display=swap">
+    <style>
+        /* Basic page styling */
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f8ff;
+            color: #333;
+            cursor: url('https://image.flaticon.com/icons/png/512/2921/2921827.png'), auto; /* Custom cursor */
+        }
+        h1 {
+            font-size: 3em;
+            color: #007bff;
+            font-family: 'Mystery Quest', cursive;
+            margin-bottom: 0;
+        }
+        h2.small-text {
+            font-size: 1.2em;
+            color: #555;
+            font-family: 'Arial', sans-serif;
+            font-weight: normal;
+            margin-top: 0;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 1.2em;
+            margin: 10px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #28a745;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .error {
+            color: red;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.7);
+            border-radius: 10px;
+            z-index: 10;
+            animation: modalShow 0.5s ease-out;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9;
+        }
+        .modal h2 {
+            margin-bottom: 20px;
+        }
+        @keyframes modalShow {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        /* Progress bar */
+        #progressBar {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #f3f3f3;
+        }
+        #progress {
+            width: 0;
+            height: 30px;
+            background-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌏💫WORLD'S BEST MIND READER🧠👀</h1>
+    <h2 class="small-text">- By @tyagixd</h2>
+    <p>Think of a number between 1 and 10 🤔.</p>
+    
+    <input type="text" id="userInput" placeholder="Enter your number">
+    <button id="guessButton">Read My Mind 🧠</button>
+
+    <div id="result"></div>
+
+    <!-- Modal and Overlay -->
+    <div id="overlay"></div>
+    <div class="modal" id="mindReadingModal">
+        <h2>Reading your mind 🧠🔮</h2>
+        <p id="modalMessage">Reading your mind... 🧠🤔</p>
+        <div id="progressBar">
+            <div id="progress"></div>
+        </div>
+    </div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js for background effect
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80 },
+                "size": { "value": 4 },
+                "move": { "speed": 3 }
+            }
+        });
+
+        document.getElementById('guessButton').addEventListener('click', function() {
+            const userInput = document.getElementById('userInput').value;
+            const resultDiv = document.getElementById('result');
+            const modal = document.getElementById('mindReadingModal');
+            const overlay = document.getElementById('overlay');
+            const modalMessage = document.getElementById('modalMessage');
+            const progressBar = document.getElementById('progress');
+            
+            // Clear previous result
+            resultDiv.style.opacity = 0;
+
+            // Validate input: check if it's a number between 1 and 10
+            const number = parseInt(userInput);
+            if (isNaN(number) || number < 1 || number > 10) {
+                resultDiv.innerHTML = '<span class="error">Please enter a valid number between 1 and 10. 🤔</span>';
+                resultDiv.style.opacity = 1;
+                return;
+            }
+
+            // Play sound effect
+            const sound = new Audio('https://www.myinstants.com/media/sounds/magic-spell-sound-effect.mp3');
+            sound.play();
+
+            // Show the modal and overlay
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+
+            // Progress bar animation
+            progressBar.style.width = '0';
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                if (progress < 100) {
+                    progress += 0.7;
+                    progressBar.style.width = progress + '%';
+                }
+            }, 100);
+
+            // Messages to simulate mind-reading process
+            const processMessages = [
+                "Reading your mind... 🧠",
+                "Consulting the stars... ✨",
+                "What could be in your mind? 👀",
+                "Analyzing your brain data... 🔮",
+                "Analyzing your behavior... 🤔",
+                "Almost there... 🤗",
+                "Scanning for psychic patterns... 👁️‍🗨️",
+                "Interpreting your imagination... 🧘",
+                "Linking with the spiritual realm... 🧿",
+                "Interpreting your cosmic signals... 💫",
+				"Synchronizing with your thoughts... 🌐",
+				"Cross-referencing your brain waves... 🧬",
+				"Diving deep into your subconscious... 🧠",
+				"Decoding your mind's deepest secrets... 🔓"
+            ];
+
+            let messageIndex = 0;
+            const messageInterval = setInterval(() => {
+                if (messageIndex < processMessages.length) {
+                    modalMessage.textContent = processMessages[messageIndex];
+                    messageIndex++;
+                } else {
+                    clearInterval(messageInterval); // Stop showing process messages
+
+                    // Hide modal and overlay after the process
+                    modal.style.display = 'none';
+                    overlay.style.display = 'none';
+                    clearInterval(progressInterval);
+
+                    // Simulate a final delay before showing the result
+                    const funnyMessages = [
+                        `Hmm... Stars told me! Your number is ${number}, wasn't it? 🔮`,
+                        `After deep thought, I can confidently say your number is ${number}! 🧠`,
+                        `My mind powers tell me your number is ${number}. Magic! 🧙`,
+                        `The spirits are whispering... ${number} is your number! 🔮`,
+                        `Got it! It must be a ${number}, my brain power says? 🤔`,
+                        `The aliens told me it’s ${number}! 👽`,
+                        `After hacking into your brain’s mainframe… your number is ${number}. 🧠💻`,
+                        `I've connected to your subconscious... and it’s ${number}! 🧠`,
+                        `You are so cute... as your number ${number}, no doubt! 🧙`,
+                        `Brainwaves decoded! The answer is... ${number}. 🧠🔮`
+                    ];
+
+                    const delay = Math.floor(Math.random() * 3000) + 1000; // 1 to 3 seconds delay
+
+                    resultDiv.textContent = 'Finalizing your mind analysis... 🧠🤔';
+
+                    setTimeout(() => {
+                      resultDiv.style.opacity = 1; // Move opacity change here
+                           const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+                           if (number === 7) {
+                           resultDiv.textContent = `Checkmate! Hacked your brain, ${number} -Thala for a reason! `;
+                      } else {
+                        resultDiv.textContent = randomMessage;
+                      }
+                    }, delay);
+                }
+            }, 1000); // Change messages every second
+        });
+    </script>
+</body>
+</html>
